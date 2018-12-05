@@ -26,17 +26,25 @@ So if you complete the bonus, this should work:
 >>> get_earliest("02/24/1946", "01/29/1946", "03/29/1945")
 "03/29/1945"
 """
+from typing import Optional
 
 
-def get_earliest(*argv: str) -> str:
+def get_earliest(*argv: str) -> Optional[str]:
     """returns the earliest of all the passed date strings"""
     earliest = get_earliest_helper(argv[0], argv[1])
     for i in range(2, len(argv)):
-        earliest = get_earliest_helper(earliest, argv[i])
-    return earliest
+        if earliest:
+            earliest = get_earliest_helper(earliest, argv[i])
+        else:
+            return None
+
+    if earliest:
+        return earliest
+    else:
+        return None
 
 
-def get_earliest_helper(date1: str, date2: str) -> str:
+def get_earliest_helper(date1: str, date2: str) -> Optional[str]:
     """returns the earliest of the two passed date strings"""
     date1_split = date1.split('/')
     date2_split = date2.split('/')
@@ -58,6 +66,8 @@ def get_earliest_helper(date1: str, date2: str) -> str:
             return date2
         elif date1_part < date2_part:
             return date1
+
+    return None
 
 
 def get_month(date: str) -> str:
