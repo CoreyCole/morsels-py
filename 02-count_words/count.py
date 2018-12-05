@@ -1,6 +1,3 @@
-import re
-from typing import Dict
-
 """
 I want you to write a function that accepts a string and returns a mapping (a dictionary or dictionary-like structure) that has words as the keys and the number of times each word was seen as the values.
 
@@ -19,10 +16,12 @@ For even more of a bonus try to get your function to ignore punctuation outside 
 >>> count_words("Oh what a day, what a lovely day!")
 {'oh': 1, 'what': 2, 'a': 2, 'day': 2, 'lovely': 1}
 """
+import re
+from typing import Dict
 
 
 def count_words(input: str) -> Dict[str, int]:
-    counts = dict()
+    counts: Dict[str, int] = dict()
     no_punctuation = re.sub(r'[,.?!¿¡]', '', input)
     for word in no_punctuation.split():
         normalized_word = word.lower()
