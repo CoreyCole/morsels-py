@@ -1,5 +1,3 @@
-from typing import Iterable
-
 """
 For this week's exercise I want you to write a function that accepts a sequence (a list for example) and returns a new iterable (anything you can loop over) with adjacent duplicate values removed.
 
@@ -25,6 +23,7 @@ As a second bonus, make sure you return an iterator (for example a generator) fr
 
 This should allow your compact function to accept infinitely long iterables (or other lazy iterables).
 """
+from typing import Iterable
 
 
 def compact(sequence: Iterable) -> Iterable:
