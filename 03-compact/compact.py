@@ -29,8 +29,6 @@ from typing import Iterable
 def compact(sequence: Iterable) -> Iterable:
     iterator = iter(sequence)
     curr = object()
-    if curr == StopIteration:
-        raise StopIteration
     for n in iterator:
         if n != curr:
             yield n
