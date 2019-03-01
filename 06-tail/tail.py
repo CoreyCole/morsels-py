@@ -25,6 +25,7 @@ See if you can make your function relatively memory efficient (if you're looping
 
 from typing import List
 
+
 # TODO: memory efficiency
 def tail(iterable: List, n: int) -> List:
     """Return the last n items of given iterable."""
