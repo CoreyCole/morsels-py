@@ -22,8 +22,8 @@ As a second bonus, make sure your function works with any iterable, not just seq
 
 See if you can make your function relatively memory efficient (if you're looping over a very long iterable, don't store the entire thing in memory).
 """
-from typing import List
 
+from typing import List
 
 # TODO: memory efficiency
 def tail(iterable: List, n: int) -> List:
