@@ -17,18 +17,12 @@ As a bonus, create a default behavior of returning the value back in the case th
 If you finish the exercise and the bonus, also consider whether there's something that could be helpful for solving this in Python's standard library. You don't necessarily need to return a dictionary for this one, but you do need to return a dictionary-like object for the tests to pass.
 """
 
+from collections import defaultdict
 from typing import Iterable, Callable, Dict, List, Optional, Any
 
 
-def group_by(list: Iterable[Any], key_func: Optional[Callable[[Any], Any]] = None) -> Dict[Any, List[Any]]:
-    if key_func is None:
-        def key_func(a):
-            return a
-    iterator = iter(list)
-    output: Dict[Any, Any] = dict()
-    for n in iterator:
-        result = key_func(n)
-        if result not in output:
-            output[result] = []
-        output[result].append(n)
+def group_by(itr: Iterable[Any], key_func: Optional[Callable[[Any], Any]] = lambda x: x) -> Dict[Any, List[Any]]:
+    output: Dict[Any, List[Any]] = defaultdict(list)
+    for n in itr:
+        output[key_func(n)].append(n)
     return output
