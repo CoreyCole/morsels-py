@@ -22,7 +22,8 @@ from typing import Iterable, Callable, Dict, List, Optional, Any
 
 def group_by(list: Iterable[Any], key_func: Optional[Callable[[Any], Any]] = None) -> Dict[Any, List[Any]]:
     if key_func is None:
-        def key_func(a): return a
+        def key_func(a):
+            return a
     iterator = iter(list)
     output: Dict[Any, Any] = dict()
     for n in iterator:
