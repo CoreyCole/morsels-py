@@ -40,19 +40,24 @@ from typing import Dict, List
 
 
 def is_anagram(a: str, b: str) -> bool:
-    a_dict: Dict[str, int] = defaultdict(int)
-    b_dict: Dict[str, int] = defaultdict(int)
-    for letter in get_standard_str(a):
-        a_dict[letter] += 1
-    for letter in get_standard_str(b):
-        b_dict[letter] += 1
-    for key in a_dict:
-        if a_dict[key] != b_dict[key]:
+    standard_a: str = get_standard_str(a)
+    standard_b: str = get_standard_str(b)
+    a_counts: Dict[str, int] = count_letters(standard_a)
+    b_counts: Dict[str, int] = count_letters(standard_b)
+    for key in a_counts:
+        if a_counts[key] != b_counts[key]:
             return False
     return True
 
 
-def get_standard_str(a: str) -> str:
+def count_letters(s: str) -> Dict[str, int]:
+    counts: Dict[str, int] = defaultdict(int)
+    for letter in s:
+        counts[letter] += 1
+    return counts
+
+
+def get_standard_str(s: str) -> str:
     remove_set = (
         '!',
         '.',
@@ -64,7 +69,7 @@ def get_standard_str(a: str) -> str:
         ' '
     )
     standard_str: List[str] = []
-    for letter in normalize('NFD', a.lower()):
+    for letter in normalize('NFD', s.lower()):
         if letter not in remove_set and not combining(letter):
             standard_str.append(letter)
     return ''.join(standard_str)
