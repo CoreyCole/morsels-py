@@ -35,11 +35,12 @@ True
 """
 
 from collections import defaultdict
-from unicodedata import normalize, combining
-from typing import Dict, List
+from unicodedata import normalize
+from typing import Dict
 
 
 def is_anagram(a: str, b: str) -> bool:
+    """Returns true if a and b are anagrams of each other, ignoring spaces and punctuation."""
     standard_a: str = get_standard_str(a)
     standard_b: str = get_standard_str(b)
     a_counts: Dict[str, int] = count_letters(standard_a)
@@ -48,25 +49,23 @@ def is_anagram(a: str, b: str) -> bool:
 
 
 def count_letters(s: str) -> Dict[str, int]:
+    """Returns a dictionary of letter counts for the given string, case sensitive."""
     counts: Dict[str, int] = defaultdict(int)
-    for letter in s:
+    for letter in s.lower():
         counts[letter] += 1
     return counts
 
 
 def get_standard_str(s: str) -> str:
-    remove_set = (
-        '!',
-        '.',
-        ',',
-        ':',
-        ';',
-        '\'',
-        '"',
-        ' '
-    )
-    standard_str: List[str] = []
-    for letter in normalize('NFD', s.lower()):
-        if letter not in remove_set and not combining(letter):
-            standard_str.append(letter)
-    return ''.join(standard_str)
+    """Standardizes the given string. Removes spaces, punctuation, and letter accents."""
+    decomposed_str = decompose_accents(s)
+    return ''.join(
+        letter
+        for letter in decomposed_str
+        if letter.isalpha()
+    ).lower()
+
+
+def decompose_accents(s: str) -> str:
+    """Return decomposed form of the given string."""
+    return normalize('NFKD', s)
