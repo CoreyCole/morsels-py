@@ -44,10 +44,7 @@ def is_anagram(a: str, b: str) -> bool:
     standard_b: str = get_standard_str(b)
     a_counts: Dict[str, int] = count_letters(standard_a)
     b_counts: Dict[str, int] = count_letters(standard_b)
-    for key in a_counts:
-        if a_counts[key] != b_counts[key]:
-            return False
-    return True
+    return a_counts == b_counts
 
 
 def count_letters(s: str) -> Dict[str, int]:
